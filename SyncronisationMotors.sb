@@ -1,0 +1,21 @@
+Sub SyncMotor
+  
+   Motor.ResetCount("B")
+   Motor.ResetCount("C")
+   
+  rPower = 50
+  lPower = 50
+
+  kp = 0.12
+
+  err = Motor.GetCount("B")*lPower - Motor.GetCount("C") * rPower
+
+  a = err * kp
+
+  result_r = rPower -  (Math.Abs(lPower + 1) - Math.Abs(lPower)) * err * a
+
+  result_l =  lPower +  (Math.Abs(rPower + 1) - Math.Abs(rPower)) * err * a
+  
+  Motor.MoveSync("BC", result_r, result_l, 5000, "True")
+EndSub
+
